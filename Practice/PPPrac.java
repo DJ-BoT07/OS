@@ -24,7 +24,7 @@ public class PPPrac {
         }
 
         for(int i = 0; i < n; i++){
-            for(int j = 0; j < n; j++){
+            for(int j = i+ 1; j < n; j++){
                 if(P[i] < P[j]){
                     int temp = P[i]; P[i] = P[j]; P[j] = temp;
                     temp = at[i]; at[i] = at[j]; at[j] = temp;
@@ -34,14 +34,16 @@ public class PPPrac {
             }
         }
 
-        ct[0] = bt[0] + at[0];
-        tat[0] = ct[0] - at[0];
-        wt[0] = tat[0] - bt[0];
-
-        for(int i = 1; i < n; i++){
-            ct[i] = ct[i - 1] + bt[i];
-            tat[i] = ct[i] - at[i];
-            wt[i] = tat[i] - bt[i];
+        for(int i = 0; i < n; i++){
+            if(i == 0 || at[i] > ct[i-1]){
+                ct[i] = at[i] + bt[i];
+                tat[i] = ct[i] - at[i];
+                wt[i] = tat[i] - bt[i];
+            } else {
+                ct[i] = ct[i-1] + bt[i];
+                tat[i] = ct[i] - at[i];
+                wt[i] = tat[i] - bt[i];
+            }
         }
 
         System.out.println("Process\tArrival Time\tBurst Time\tPriority\tCompletion Time\tTurn Around Time\tWaiting Time");
